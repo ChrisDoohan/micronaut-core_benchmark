@@ -35,54 +35,54 @@ class ClientProxySpec extends Specification {
         proxyContainer.start()
     }
 
-    void "test downloading via http proxy using proxy-address"() {
-        given:
-        startServer([
-                'micronaut.http.client.exception-on-error-status': false,
-                'micronaut.http.client.proxy-type'               : 'http',
-                'micronaut.http.client.proxy-address'            : "${proxyHost}:${proxyPort}"
-        ])
+    // void "test downloading via http proxy using proxy-address"() {
+    //     given:
+    //     startServer([
+    //             'micronaut.http.client.exception-on-error-status': false,
+    //             'micronaut.http.client.proxy-type'               : 'http',
+    //             'micronaut.http.client.proxy-address'            : "${proxyHost}:${proxyPort}"
+    //     ])
 
-        when: 'download page via proxy'
-        def response = downloadPage()
+    //     when: 'download page via proxy'
+    //     def response = downloadPage()
 
-        then: 'page is downloaded'
-        response.status == HttpStatus.OK
-        response.body().contains(HTML_FRAGMENT)
+    //     then: 'page is downloaded'
+    //     response.status == HttpStatus.OK
+    //     response.body().contains(HTML_FRAGMENT)
 
-        when: 'proxy container is stopped'
-        proxyContainer.stop()
+    //     when: 'proxy container is stopped'
+    //     proxyContainer.stop()
 
-        then: 'page download fails'
-        downloadFailsWithException() instanceof HttpClientException
-    }
+    //     then: 'page download fails'
+    //     downloadFailsWithException() instanceof HttpClientException
+    // }
 
-    void "test downloading via http proxy using default proxy-selector"() {
-        given:
-        def oldProxyHost = System.setProperty('https.proxyHost', proxyHost)
-        def oldProxyPort = System.setProperty('https.proxyPort', proxyPort.toString())
-        startServer([
-                'micronaut.http.client.exception-on-error-status': false,
-                'micronaut.http.client.proxy-selector'           : 'default'
-        ])
+    // void "test downloading via http proxy using default proxy-selector"() {
+    //     given:
+    //     def oldProxyHost = System.setProperty('https.proxyHost', proxyHost)
+    //     def oldProxyPort = System.setProperty('https.proxyPort', proxyPort.toString())
+    //     startServer([
+    //             'micronaut.http.client.exception-on-error-status': false,
+    //             'micronaut.http.client.proxy-selector'           : 'default'
+    //     ])
 
-        when: 'download page via proxy'
-        def response = downloadPage()
+    //     when: 'download page via proxy'
+    //     def response = downloadPage()
 
-        then: 'page is downloaded'
-        response.status == HttpStatus.OK
-        response.body().contains(HTML_FRAGMENT)
+    //     then: 'page is downloaded'
+    //     response.status == HttpStatus.OK
+    //     response.body().contains(HTML_FRAGMENT)
 
-        when: 'proxy container is stopped'
-        proxyContainer.stop()
+    //     when: 'proxy container is stopped'
+    //     proxyContainer.stop()
 
-        then: 'page download fails'
-        downloadFailsWithException() instanceof HttpClientException
+    //     then: 'page download fails'
+    //     downloadFailsWithException() instanceof HttpClientException
 
-        cleanup:
-        resetSystemProperty('https.proxyHost', oldProxyHost)
-        resetSystemProperty('https.proxyPort', oldProxyPort)
-    }
+    //     cleanup:
+    //     resetSystemProperty('https.proxyHost', oldProxyHost)
+    //     resetSystemProperty('https.proxyPort', oldProxyPort)
+    // }
 
     private String getProxyHost() {
         proxyContainer.containerIpAddress

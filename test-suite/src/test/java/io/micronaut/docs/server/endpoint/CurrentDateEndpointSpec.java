@@ -72,28 +72,28 @@ public class CurrentDateEndpointSpec {
         server.close();
     }
 
-    @Test
-    public void testWriteCustomDateEndpoint() {
-        EmbeddedServer server = ApplicationContext.run(EmbeddedServer.class);
-        HttpClient rxClient = server.getApplicationContext().createBean(HttpClient.class, server.getURL());
-        Date originalDate, resetDate;
-        Map<String, Object> map = new HashMap<>();
+    // @Test
+    // public void testWriteCustomDateEndpoint() {
+    //     EmbeddedServer server = ApplicationContext.run(EmbeddedServer.class);
+    //     HttpClient rxClient = server.getApplicationContext().createBean(HttpClient.class, server.getURL());
+    //     Date originalDate, resetDate;
+    //     Map<String, Object> map = new HashMap<>();
 
-        HttpResponse<String> response = rxClient.toBlocking().exchange("/date", String.class);
-        originalDate = new Date(Long.parseLong(response.body()));
+    //     HttpResponse<String> response = rxClient.toBlocking().exchange("/date", String.class);
+    //     originalDate = new Date(Long.parseLong(response.body()));
 
-        response = rxClient.toBlocking().exchange(HttpRequest.POST("/date", map), String.class);
+    //     response = rxClient.toBlocking().exchange(HttpRequest.POST("/date", map), String.class);
 
-        assertEquals(HttpStatus.OK.getCode(), response.code());
-        assertEquals("Current date reset", response.body());
+    //     assertEquals(HttpStatus.OK.getCode(), response.code());
+    //     assertEquals("Current date reset", response.body());
 
-        response = rxClient.toBlocking().exchange("/date", String.class);
-        resetDate = new Date(Long.parseLong(response.body()));
+    //     response = rxClient.toBlocking().exchange("/date", String.class);
+    //     resetDate = new Date(Long.parseLong(response.body()));
 
-        assert resetDate.getTime() > originalDate.getTime();
+    //     assert resetDate.getTime() > originalDate.getTime();
 
-        server.close();
-    }
+    //     server.close();
+    // }
 
     @Test
     public void testDisableEndpoint() {

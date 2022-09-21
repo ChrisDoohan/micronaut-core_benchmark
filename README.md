@@ -1,3 +1,10 @@
+# Using This Repo to Benchmark The M1
+1. `brew install openjdk`
+1. `sudo ln -sfn /opt/homebrew/opt/openjdk/libexec/openjdk.jdk /Library/Java/JavaVirtualMachines/openjdk.jdk`
+1. `git clone git@github.com:ChrisDoohan/micronaut-core_benchmark.git`
+1. `cd micronaut-core_benchmark`
+1. `/usr/bin/time ./gradlew clean build` should run the build **and** the tests. You will probably have to click "yes" and "OK" on a bunch of security popups.
+
 # Micronaut Framework
 
 [![Build Status](https://github.com/micronaut-projects/micronaut-core/workflows/Java%20CI/badge.svg)](https://github.com/micronaut-projects/micronaut-core/actions)
